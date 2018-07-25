@@ -1,0 +1,35 @@
+{
+  "name": "bittrex-node",
+  "version": "1.0.0",
+  "description": "Bittrex API client for Node.js",
+  "author": "Andrew Barba <abarba.77@gmail.com>",
+  "license": "MIT",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "keywords": [
+    "bittrex",
+    "crypto",
+    "exchange",
+    "rest",
+    "nodejs",
+    "axios",
+    "https"
+  ],
+  "repository": {
+    "url": "https://github.com/AndrewBarba/bittrex-node"
+  },
+  "dependencies": {
+    "axios": "0.18.0"
+  },
+  "devDependencies": {
+    "eslint": "5.2.0",
+    "mocha": "5.2.0",
+    "should": "13.2.1"
+  },
+  "scripts": {
+    "lint": "npx eslint ./",
+    "test": "npx mocha --exit --bail --slow 1000 --timeout 5000 ./test"
+  }
+}
