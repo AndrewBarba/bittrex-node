@@ -158,7 +158,7 @@ class BittrexApi {
   async openOrders(market) {
     if (!market) throw new Error('market is required')
     let params = { market }
-    return this.request('get', '/public/getopenorders', { params })
+    return this.request('get', '/market/getopenorders', { params })
   }
 
   /*-------------------------------------------------------------------------*
