@@ -34,7 +34,7 @@ let client = new BittrexClient({
 ```javascript
 await client.markets()
 await client.currencies()
-await client.ticket('BTC-ETH')
+await client.ticker('BTC-ETH')
 await client.marketSummaries()
 await client.marketSummary('BTC-ETH')
 await client.marketHistory('BTC-ETH')
