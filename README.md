@@ -4,6 +4,7 @@
 
 A full-featured Bittrex API client for Node.js
 
+- [x] Supports all documented v1.1 endpoints
 - [x] 100% unit-test coverage
 - [x] Heavily documented
 - [x] Promise based with async/await
