@@ -256,26 +256,17 @@ class BittrexApi {
    * @param {Object} [options.data]
    * @param {Object} [options.params]
    */
-  async request(method, url, { headers = {}, params = {}, data = null } = {}) {
+  async request(method, url, { headers = {}, params = {} } = {}) {
     if (this._apiKey) {
       params.nonce = ++this._nonce
       params.apikey = this._apiKey
       headers.apisign = this.requestSignature(url, params)
     }
-
-    let res = await this._client.request({
-      method,
-      url,
-      headers,
-      data,
-      params
-    })
-
-    if (res.data && res.data.success) {
-      return res.data.result
+    let { data } = await this._client.request({ method, url, headers, params })
+    if (!data.success) {
+      throw new Error(data.message)
     }
-
-    throw new Error(res.data.message)
+    return data.result
   }
 
   /**
