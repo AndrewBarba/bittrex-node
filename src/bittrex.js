@@ -29,7 +29,8 @@ class BittrexApi {
    * @return {Promise}
    */
   async markets() {
-    return this.request('get', '/public/getmarkets')
+    let results = await this.request('get', '/public/getmarkets')
+    return this.parseDates(results, ['Created'])
   }
 
   /**
@@ -56,7 +57,8 @@ class BittrexApi {
    * @return {Promise}
    */
   async marketSummaries() {
-    return this.request('get', '/public/getmarketsummaries')
+    let results = await this.request('get', '/public/getmarketsummaries')
+    return this.parseDates(results, ['TimeStamp', 'Created'])
   }
 
   /**
@@ -78,7 +80,8 @@ class BittrexApi {
   async marketHistory(market) {
     if (!market) throw new Error('market is required')
     let params = { market }
-    return this.request('get', '/public/getmarkethistory', { params })
+    let results = await this.request('get', '/public/getmarkethistory', { params })
+    return this.parseDates(results, ['TimeStamp'])
   }
 
   /**
@@ -216,12 +219,8 @@ class BittrexApi {
   async orderHistory(market) {
     if (!market) throw new Error('market is required')
     let params = { market }
-    let orders = await this.request('get', '/account/getorderhistory', { params })
-    for (let order of orders) {
-      order.TimeStamp = new Date(`${order.TimeStamp}Z`)
-      order.Closed = new Date(`${order.Closed}Z`)
-    }
-    return orders
+    let results = await this.request('get', '/account/getorderhistory', { params })
+    return this.parseDates(results, ['TimeStamp', 'Closed'])
   }
 
   /**
@@ -280,6 +279,22 @@ class BittrexApi {
     let url = `${this._client.defaults.baseURL}${path}?${query}`
     let hmac = crypto.createHmac('sha512', this._apiSecret)
     return hmac.update(url).digest('hex')
+  }
+
+  /**
+   * @private
+   * @method parseDates
+   * @param {Array<Object>} results
+   * @param {Array<String>} keys
+   * @return {Array<Object>}
+   */
+  parseDates(results, keys) {
+    for (let result of results) {
+      for (let key of keys) {
+        result[key] = new Date(`${result[key]}Z`)
+      }
+    }
+    return results
   }
 }
 
