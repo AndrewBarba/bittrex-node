@@ -16,3 +16,47 @@ If you're using the Bittrex REST API, I can assure you this is the only library 
 - It throws proper errors when parameters are missing
 - It uses a single https client with Keep-Alive enabled
 - It's faster than every other node Bittrex library
+
+## Initialize Client
+
+```javascript
+const { BittrexClient } = require('bittrex-node')
+
+let client = new BittrexClient({
+  apiKey: '12345',
+  apiSecret: 'abcde'
+})
+```
+
+## Public Methods
+
+```javascript
+await client.markets()
+await client.currencies()
+await client.ticket('BTC-ETH')
+await client.marketSummaries()
+await client.marketSummary('BTC-ETH')
+await client.marketHistory('BTC-ETH')
+await client.orderBook('BTC-ETH', { type: 'both' })
+```
+
+## Market Methods
+
+```javascript
+await client.buyLimit('BTC-ETH', { quantity: 2.1, price: 0.1 })
+await client.sellLimit('BTC-ETH', { quantity: 2.1, price: 0.1 })
+await client.cancelOrder('1234-5678')
+await client.openOrders('BTC-ETH')
+```
+
+## Account Methods
+
+```javascript
+await client.balances()
+await client.balance('BTC')
+await client.depositAddress('BTC')
+await client.withdraw('BTC', { quantity: 1.2, address: 'abcde' })
+await client.orderHistory('BTC-ETH')
+await client.withdrawalHistory('BTC')
+await client.depositHistory('BTC')
+```

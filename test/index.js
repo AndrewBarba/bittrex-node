@@ -1,5 +1,5 @@
 const should = require('should')
-const { BittrexClient } = require('../src')
+const { BittrexClient } = require('../')
 const client = new BittrexClient({
   apiKey: process.env.API_KEY,
   apiSecret: process.env.API_SECRET

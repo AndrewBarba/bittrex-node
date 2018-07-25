@@ -1,3 +1,3 @@
-const BittrexClient = require('./bittrex')
+const BittrexClient = require('./bittrex-client')
 
 module.exports = { BittrexClient }
