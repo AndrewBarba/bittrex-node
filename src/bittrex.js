@@ -158,7 +158,8 @@ class BittrexApi {
   async openOrders(market) {
     if (!market) throw new Error('market is required')
     let params = { market }
-    return this.request('get', '/market/getopenorders', { params })
+    let results = await this.request('get', '/market/getopenorders', { params })
+    return this.parseDates(results, ['Opened'])
   }
 
   /*-------------------------------------------------------------------------*
@@ -230,7 +231,8 @@ class BittrexApi {
    */
   async withdrawalHistory(currency) {
     let params = { currency }
-    return this.request('get', '/account/getwithdrawalhistory', { params })
+    let results = await this.request('get', '/account/getwithdrawalhistory', { params })
+    return this.parseDates(results, ['LastUpdated'])
   }
 
   /**
@@ -240,7 +242,8 @@ class BittrexApi {
    */
   async depositHistory(currency) {
     let params = { currency }
-    return this.request('get', '/account/getdeposithistory', { params })
+    let results = await this.request('get', '/account/getdeposithistory', { params })
+    return this.parseDates(results, ['LastUpdated'])
   }
 
   /*-------------------------------------------------------------------------*

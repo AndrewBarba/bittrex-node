@@ -65,9 +65,39 @@ describe('bittrex-node', () => {
   })
 
   describe('account', () => {
-    it('should list orders', async () => {
-      let orders = await client.orderHistory('BTC-XLM')
-      should.exist(orders)
+    it('should get balances', async () => {
+      let results = await client.balances()
+      should.exist(results)
+      results.length.should.be.aboveOrEqual(0)
+    })
+
+    it('should get balance', async () => {
+      let { Balance } = await client.balance('BTC')
+      should.exist(Balance)
+      Balance.should.be.aboveOrEqual(0)
+    })
+
+    it('should get deposit address', async () => {
+      let { Address } = await client.depositAddress('BTC')
+      should.exist(Address)
+    })
+
+    it('should get order history', async () => {
+      let results = await client.orderHistory('BTC-XLM')
+      should.exist(results)
+      results.length.should.be.aboveOrEqual(0)
+    })
+
+    it('should get withdrawl history', async () => {
+      let results = await client.withdrawalHistory('BTC')
+      should.exist(results)
+      results.length.should.be.aboveOrEqual(0)
+    })
+
+    it('should get deposit history', async () => {
+      let results = await client.depositHistory('BTC')
+      should.exist(results)
+      results.length.should.be.aboveOrEqual(0)
     })
   })
 })
