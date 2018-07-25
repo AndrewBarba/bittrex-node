@@ -5,6 +5,6 @@ Change Log
 
 ---
 
-## [1.0.0](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.0.0)
+## [1.0.1](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.0.1)
 
-1. Initial release
+Initial release
