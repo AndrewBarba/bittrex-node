@@ -7,16 +7,17 @@ class BittrexApi {
 
   /**
    * @constructor
-   * @param {String} options.apiKey
-   * @param {String} options.apiSecret
+   * @param {String} [options.apiKey=null]
+   * @param {String} [options.apiSecret=null]
+   * @param {Boolean} [options.keepAlive=true]
    */
-  constructor({ apiKey, apiSecret } = {}) {
-    this._apiKey = apiKey || null
-    this._apiSecret = apiSecret || null
+  constructor({ apiKey = null, apiSecret = null, keepAlive = true } = {}) {
+    this._apiKey = apiKey
+    this._apiSecret = apiSecret
     this._nonce = Date.now()
     this._client = axios.create({
       baseURL: 'https://bittrex.com/api/v1.1',
-      httpsAgent: new https.Agent({ keepAlive: true })
+      httpsAgent: new https.Agent({ keepAlive })
     })
   }
 
