@@ -109,14 +109,14 @@ class BittrexClient {
    * @param {String|Number} options.price
    * @return {Promise}
    */
-  async buyLimit(market, { quantity, price } = {}) {
+  async buyLimit(market, { quantity, rate } = {}) {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
-    if (!price) throw new Error('options.price is required')
+    if (!rate) throw new Error('options.rate is required')
     let params = {
       market,
       quantity: parseFloat(quantity).toFixed(8),
-      price : parseFloat(price).toFixed(8)
+      rate : parseFloat(rate).toFixed(8)
     }
     return this.request('get', '/market/buylimit', { params })
   }
@@ -128,14 +128,14 @@ class BittrexClient {
    * @param {String|Number} options.price
    * @return {Promise}
    */
-  async sellLimit(market, { quantity, price } = {}) {
+  async sellLimit(market, { quantity, rate } = {}) {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
-    if (!price) throw new Error('options.price is required')
+    if (!rate) throw new Error('options.rate is required')
     let params = {
       market,
       quantity: parseFloat(quantity).toFixed(8),
-      price : parseFloat(price).toFixed(8)
+      rate : parseFloat(rate).toFixed(8)
     }
     return this.request('get', '/market/selllimit', { params })
   }

@@ -57,10 +57,32 @@ describe('bittrex-node', () => {
   })
 
   describe('market', () => {
+    let buyOrderId
+
     it('should get open orders', async () => {
       let results = await client.openOrders('BTC-XLM')
       should.exist(results)
       results.length.should.be.aboveOrEqual(0)
+    })
+
+    it('should place a buy limit order', async () => {
+      let { uuid } = await client.buyLimit('BTC-ETH', { quantity: 50000, rate: 0.0000001 })
+      should.exist(uuid)
+      buyOrderId = uuid
+    })
+
+    it('should cancel an order', async () => {
+      await client.cancelOrder(buyOrderId)
+    })
+
+    it('should attempt a sell limit order', async () => {
+      try {
+        let result = await client.sellLimit('BTC-ETH', { quantity: 50000, rate: 0.0000001 })
+        should.not.exist(result)
+      } catch(err) {
+        should.exist(err)
+        err.message.should.equal('INSUFFICIENT_FUNDS')
+      }
     })
   })
 
