@@ -3,7 +3,7 @@ const crypto = require('crypto')
 const https = require('https')
 const querystring = require('querystring')
 
-class BittrexApi {
+class BittrexClient {
 
   /**
    * @constructor
@@ -302,4 +302,4 @@ class BittrexApi {
   }
 }
 
-module.exports = BittrexApi
+module.exports = BittrexClient
