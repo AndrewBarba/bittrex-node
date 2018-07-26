@@ -70,7 +70,8 @@ class BittrexClient {
   async marketSummary(market) {
     if (!market) throw new Error('market is required')
     let params = { market }
-    return this.request('get', '/public/getmarketsummary', { params })
+    let results = await this.request('get', '/public/getmarketsummary', { params })
+    return this.parseDates(results, ['TimeStamp', 'Created'])
   }
 
   /**
@@ -103,7 +104,7 @@ class BittrexClient {
    *-------------------------------------------------------------------------*/
 
   /**
-   * @method buy
+   * @method buyLimit
    * @param {String} market
    * @param {String|Number} options.quantity
    * @param {String|Number} options.price
@@ -176,7 +177,7 @@ class BittrexClient {
   }
 
   /**
-   * @method balances
+   * @method balance
    * @param {String} currency
    * @return {Promise}
    */
