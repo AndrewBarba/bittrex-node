@@ -211,7 +211,7 @@ class BittrexClient {
     if (!quantity) throw new Error('options.quantity is required')
     if (!address) throw new Error('options.address is required')
     let params = { currency, quantity, address, paymentid }
-    return this.request('get', '/account/getdepositaddress', { params })
+    return this.request('get', '/account/withdraw', { params })
   }
 
   /**
