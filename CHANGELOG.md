@@ -7,7 +7,8 @@ Change Log
 
 ## [1.0.3](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.0.3)
 
-1. Fix withdraw endpoint
+1. Fix withdraw endpoint typo
+2. Fix withdraw failing to sign when omitting paymentid
 
 ## [1.0.2](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.0.2)
 
