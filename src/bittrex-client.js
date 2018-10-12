@@ -261,15 +261,20 @@ class BittrexClient {
    * @param {Object} [options.params]
    */
   async request(method, url, { headers = {}, params = {} } = {}) {
+    params = this.sanitizeParams(params)
+
     if (this._apiKey) {
       params.nonce = ++this._nonce
       params.apikey = this._apiKey
       headers.apisign = this.requestSignature(url, params)
     }
+
     let { data } = await this._client.request({ method, url, headers, params })
+
     if (!data.success) {
       throw new Error(data.message)
     }
+
     return data.result
   }
 
@@ -284,6 +289,21 @@ class BittrexClient {
     let url = `${this._client.defaults.baseURL}${path}?${query}`
     let hmac = crypto.createHmac('sha512', this._apiSecret)
     return hmac.update(url).digest('hex')
+  }
+
+  /**
+   * @private
+   * @method sanitizeParams
+   * @param {Object} params
+   * @return {Object}
+   */
+  sanitizeParams(params = {}) {
+    let obj = {}
+    for (let key of Object.keys(params)) {
+      if (params[key] === undefined) continue
+      obj[key] = params[key]
+    }
+    return obj
   }
 
   /**
