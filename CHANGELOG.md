@@ -5,6 +5,10 @@ Change Log
 
 ---
 
+## [1.1.0](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.1.0)
+
+1. Get order by id
+
 ## [1.0.3](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.0.3)
 
 1. Fix withdraw endpoint typo
