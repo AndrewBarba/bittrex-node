@@ -225,6 +225,18 @@ class BittrexClient {
     let results = await this.request('get', '/account/getorderhistory', { params })
     return this.parseDates(results, ['TimeStamp', 'Closed'])
   }
+  
+  /**
+   * @method order
+   * @param {String} uuid
+   * @return {Promise}
+   */
+  async order(uuid) {
+    if (!uuid) throw new Error('uuid is required')
+    let params = { uuid }
+    let results = await this.request('get', '/account/getorder', { params })
+    return this.parseDates(results, ['Opened'])
+  }
 
   /**
    * @method withdrawalHistory
