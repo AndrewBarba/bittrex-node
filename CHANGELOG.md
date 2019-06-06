@@ -5,6 +5,10 @@ Change Log
 
 ---
 
+## [1.2.1](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.2.1)
+
+1. Parse order `Closed` date
+
 ## [1.2.0](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.2.0)
 
 1. Upgrade Axios

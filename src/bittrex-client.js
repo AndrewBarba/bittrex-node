@@ -234,7 +234,7 @@ class BittrexClient {
     if (!uuid) throw new Error('uuid is required')
     const params = { uuid }
     const result = await this.request('get', '/account/getorder', { params })
-    return this.parseDates([result], ['Opened'])[0]
+    return this.parseDates([result], ['Opened', 'Closed'])[0]
   }
 
   /**
@@ -327,6 +327,7 @@ class BittrexClient {
   parseDates(results, keys) {
     for (const result of results) {
       for (const key of keys) {
+        if (!result[key]) continue
         result[key] = new Date(`${result[key]}Z`)
       }
     }
