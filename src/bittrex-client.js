@@ -158,7 +158,6 @@ class BittrexClient {
    * @return {Promise}
    */
   async openOrders(market) {
-    if (!market) throw new Error('market is required')
     const params = { market }
     const results = await this.request('get', '/market/getopenorders', { params })
     return this.parseDates(results, ['Opened'])
