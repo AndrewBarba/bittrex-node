@@ -5,6 +5,11 @@ Change Log
 
 ---
 
+## [1.2.0](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.2.0)
+
+1. Upgrade Axios
+2. Fix `order()` parse bug
+
 ## [1.1.0](https://github.com/AndrewBarba/bittrex-node/releases/tag/1.1.0)
 
 1. Get order by id
