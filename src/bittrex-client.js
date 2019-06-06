@@ -30,7 +30,7 @@ class BittrexClient {
    * @return {Promise}
    */
   async markets() {
-    let results = await this.request('get', '/public/getmarkets')
+    const results = await this.request('get', '/public/getmarkets')
     return this.parseDates(results, ['Created'])
   }
 
@@ -49,7 +49,7 @@ class BittrexClient {
    */
   async ticker(market) {
     if (!market) throw new Error('market is required')
-    let params = { market }
+    const params = { market }
     return this.request('get', '/public/getticker', { params })
   }
 
@@ -58,7 +58,7 @@ class BittrexClient {
    * @return {Promise}
    */
   async marketSummaries() {
-    let results = await this.request('get', '/public/getmarketsummaries')
+    const results = await this.request('get', '/public/getmarketsummaries')
     return this.parseDates(results, ['TimeStamp', 'Created'])
   }
 
@@ -69,8 +69,8 @@ class BittrexClient {
    */
   async marketSummary(market) {
     if (!market) throw new Error('market is required')
-    let params = { market }
-    let results = await this.request('get', '/public/getmarketsummary', { params })
+    const params = { market }
+    const results = await this.request('get', '/public/getmarketsummary', { params })
     return this.parseDates(results, ['TimeStamp', 'Created'])
   }
 
@@ -81,8 +81,8 @@ class BittrexClient {
    */
   async marketHistory(market) {
     if (!market) throw new Error('market is required')
-    let params = { market }
-    let results = await this.request('get', '/public/getmarkethistory', { params })
+    const params = { market }
+    const results = await this.request('get', '/public/getmarkethistory', { params })
     return this.parseDates(results, ['TimeStamp'])
   }
 
@@ -95,7 +95,7 @@ class BittrexClient {
   async orderBook(market, { type = 'both' } = {}) {
     if (!market) throw new Error('market is required')
     if (!type) throw new Error('options.type is required')
-    let params = { market, type }
+    const params = { market, type }
     return this.request('get', '/public/getorderbook', { params })
   }
 
@@ -114,7 +114,7 @@ class BittrexClient {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
     if (!rate) throw new Error('options.rate is required')
-    let params = {
+    const params = {
       market,
       quantity: parseFloat(quantity).toFixed(8),
       rate : parseFloat(rate).toFixed(8)
@@ -133,7 +133,7 @@ class BittrexClient {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
     if (!rate) throw new Error('options.rate is required')
-    let params = {
+    const params = {
       market,
       quantity: parseFloat(quantity).toFixed(8),
       rate : parseFloat(rate).toFixed(8)
@@ -148,7 +148,7 @@ class BittrexClient {
    */
   async cancelOrder(uuid) {
     if (!uuid) throw new Error('uuid is required')
-    let params = { uuid }
+    const params = { uuid }
     return this.request('get', '/market/cancel', { params })
   }
 
@@ -159,8 +159,8 @@ class BittrexClient {
    */
   async openOrders(market) {
     if (!market) throw new Error('market is required')
-    let params = { market }
-    let results = await this.request('get', '/market/getopenorders', { params })
+    const params = { market }
+    const results = await this.request('get', '/market/getopenorders', { params })
     return this.parseDates(results, ['Opened'])
   }
 
@@ -183,7 +183,7 @@ class BittrexClient {
    */
   async balance(currency) {
     if (!currency) throw new Error('currency is required')
-    let params = { currency }
+    const params = { currency }
     return this.request('get', '/account/getbalance', { params })
   }
 
@@ -194,7 +194,7 @@ class BittrexClient {
    */
   async depositAddress(currency) {
     if (!currency) throw new Error('currency is required')
-    let params = { currency }
+    const params = { currency }
     return this.request('get', '/account/getdepositaddress', { params })
   }
 
@@ -210,7 +210,7 @@ class BittrexClient {
     if (!currency) throw new Error('currency is required')
     if (!quantity) throw new Error('options.quantity is required')
     if (!address) throw new Error('options.address is required')
-    let params = { currency, quantity, address, paymentid }
+    const params = { currency, quantity, address, paymentid }
     return this.request('get', '/account/withdraw', { params })
   }
 
@@ -221,11 +221,11 @@ class BittrexClient {
    */
   async orderHistory(market) {
     if (!market) throw new Error('market is required')
-    let params = { market }
-    let results = await this.request('get', '/account/getorderhistory', { params })
+    const params = { market }
+    const results = await this.request('get', '/account/getorderhistory', { params })
     return this.parseDates(results, ['TimeStamp', 'Closed'])
   }
-  
+
   /**
    * @method order
    * @param {String} uuid
@@ -233,9 +233,9 @@ class BittrexClient {
    */
   async order(uuid) {
     if (!uuid) throw new Error('uuid is required')
-    let params = { uuid }
-    let results = await this.request('get', '/account/getorder', { params })
-    return this.parseDates(results, ['Opened'])
+    const params = { uuid }
+    const result = await this.request('get', '/account/getorder', { params })
+    return this.parseDates([result], ['Opened'])[0]
   }
 
   /**
@@ -244,8 +244,8 @@ class BittrexClient {
    * @return {Promise}
    */
   async withdrawalHistory(currency) {
-    let params = { currency }
-    let results = await this.request('get', '/account/getwithdrawalhistory', { params })
+    const params = { currency }
+    const results = await this.request('get', '/account/getwithdrawalhistory', { params })
     return this.parseDates(results, ['LastUpdated'])
   }
 
@@ -255,8 +255,8 @@ class BittrexClient {
    * @return {Promise}
    */
   async depositHistory(currency) {
-    let params = { currency }
-    let results = await this.request('get', '/account/getdeposithistory', { params })
+    const params = { currency }
+    const results = await this.request('get', '/account/getdeposithistory', { params })
     return this.parseDates(results, ['LastUpdated'])
   }
 
@@ -281,7 +281,7 @@ class BittrexClient {
       headers.apisign = this.requestSignature(url, params)
     }
 
-    let { data } = await this._client.request({ method, url, headers, params })
+    const { data } = await this._client.request({ method, url, headers, params })
 
     if (!data.success) {
       throw new Error(data.message)
@@ -297,9 +297,9 @@ class BittrexClient {
    * @return {String}
    */
   requestSignature(path, params) {
-    let query = querystring.stringify(params)
-    let url = `${this._client.defaults.baseURL}${path}?${query}`
-    let hmac = crypto.createHmac('sha512', this._apiSecret)
+    const query = querystring.stringify(params)
+    const url = `${this._client.defaults.baseURL}${path}?${query}`
+    const hmac = crypto.createHmac('sha512', this._apiSecret)
     return hmac.update(url).digest('hex')
   }
 
@@ -310,8 +310,8 @@ class BittrexClient {
    * @return {Object}
    */
   sanitizeParams(params = {}) {
-    let obj = {}
-    for (let key of Object.keys(params)) {
+    const obj = {}
+    for (const key of Object.keys(params)) {
       if (params[key] === undefined) continue
       obj[key] = params[key]
     }
@@ -326,8 +326,8 @@ class BittrexClient {
    * @return {Array<Object>}
    */
   parseDates(results, keys) {
-    for (let result of results) {
-      for (let key of keys) {
+    for (const result of results) {
+      for (const key of keys) {
         result[key] = new Date(`${result[key]}Z`)
       }
     }
