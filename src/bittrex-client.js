@@ -110,7 +110,7 @@ class BittrexClient {
    * @param {String|Number} options.price
    * @return {Promise}
    */
-  async buyLimit(market, { quantity, rate, timeInForce } = {}) {
+  async buyLimit(market, { quantity, rate, timeInForce = 'GTC' } = {}) {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
     if (!rate) throw new Error('options.rate is required')
