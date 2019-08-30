@@ -110,14 +110,16 @@ class BittrexClient {
    * @param {String|Number} options.price
    * @return {Promise}
    */
-  async buyLimit(market, { quantity, rate } = {}) {
+  async buyLimit(market, { quantity, rate, timeInForce = 'GTC' } = {}) {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
     if (!rate) throw new Error('options.rate is required')
+    if (timeInForce !== 'IOC' && timeInForce !== 'GTC') throw new Error('options.timeInForce not IOC or GTC')
     const params = {
       market,
       quantity: parseFloat(quantity).toFixed(8),
-      rate : parseFloat(rate).toFixed(8)
+      rate: parseFloat(rate).toFixed(8),
+      timeInForce
     }
     return this.request('get', '/market/buylimit', { params })
   }
@@ -129,14 +131,17 @@ class BittrexClient {
    * @param {String|Number} options.price
    * @return {Promise}
    */
-  async sellLimit(market, { quantity, rate } = {}) {
+  async sellLimit(market, { quantity, rate, timeInForce = 'GTC' } = {}) {
     if (!market) throw new Error('market is required')
     if (!quantity) throw new Error('options.quantity is required')
     if (!rate) throw new Error('options.rate is required')
+    if (timeInForce !== 'IOC' && timeInForce !== 'GTC') throw new Error('options.timeInForce not IOC or GTC')
+
     const params = {
       market,
       quantity: parseFloat(quantity).toFixed(8),
-      rate : parseFloat(rate).toFixed(8)
+      rate: parseFloat(rate).toFixed(8),
+      timeInForce
     }
     return this.request('get', '/market/selllimit', { params })
   }
