@@ -224,7 +224,6 @@ class BittrexClient {
    * @return {Promise}
    */
   async orderHistory(market) {
-    if (!market) throw new Error('market is required')
     const params = { market }
     const results = await this.request('get', '/account/getorderhistory', { params })
     return this.parseDates(results, ['TimeStamp', 'Closed'])
